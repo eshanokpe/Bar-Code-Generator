@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class barcode extends Model
+{
+    use HasFactory;
+    protected $table = 'barcodes';
+    protected $fillable = ['barcode_data'];
+}
+
+Route::get('/barcodes', [BarcodeController::class, 'showBarcodes']);
