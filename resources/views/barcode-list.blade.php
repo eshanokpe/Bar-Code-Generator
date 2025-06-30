@@ -167,7 +167,7 @@
         }
         
         .barcode-actions {
-            flex: 0 0 100px;
+            flex: 0 0 10px;
             display: flex;
             justify-content: center;
         }
