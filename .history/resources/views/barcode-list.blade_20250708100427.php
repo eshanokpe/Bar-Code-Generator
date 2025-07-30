@@ -284,7 +284,7 @@
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-tag-fill"></i></span>
                             <input type="text" name="barcodeData" class="form-control" id="barcodeInput" 
-                                   placeholder="Example: R01 - L2 - CA or PR01/A" value="{{ old('barcodeData') }}" required>
+                                   placeholder="Example: R01 - L2 - C or PR01/A" value="{{ old('barcodeData') }}" required>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex align-items-end">
@@ -294,7 +294,7 @@
                     </div>
                 </div>
                 <div class="mt-3 text-muted">
-                    <small><i class="bi bi-info-circle"></i> Valid formats: R01 - L2 - CA or PR01/A</small>
+                    <small><i class="bi bi-info-circle"></i> Valid formats: R01/Level 2/C or PR01/A</small>
                 </div>
             </form>
         </div>

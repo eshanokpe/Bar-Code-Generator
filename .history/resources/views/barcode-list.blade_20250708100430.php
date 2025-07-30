@@ -294,7 +294,7 @@
                     </div>
                 </div>
                 <div class="mt-3 text-muted">
-                    <small><i class="bi bi-info-circle"></i> Valid formats: R01 - L2 - CA or PR01/A</small>
+                    <small><i class="bi bi-info-circle"></i> Valid formats: R01/Level 2/C or PR01/A</small>
                 </div>
             </form>
         </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Barcode;
 use Illuminate\Http\Request;
 use Picqer\Barcode\BarcodeGeneratorPNG;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 
 class BarcodeController extends Controller
@@ -44,9 +43,8 @@ class BarcodeController extends Controller
         $barcodeData = trim($request->input('barcodeData'));
 
         // Define regular expression patterns for both "R01 - L2 - C" and "PR01/A" formats
-        // $patternRR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w)$/';
-        // $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w\d)$/';
-        $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*([A-Za-z]\d?)$/';
+        
+        $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w\d)$/';
         $patternPR = '/^PR(\d{2})\/(\w)$/';
 
         if (preg_match($patternR, $barcodeData, $matchesR)) {
@@ -63,34 +61,21 @@ class BarcodeController extends Controller
                 ->withInput()
                 ->with('error', 'Invalid format. Valid formats: R01 - L2 - C or PR01/A');
         }
-        try {
-                // Generate the barcode image using the formatted input data
-                $generator = new BarcodeGeneratorPNG();
-                $barcodeImage = 'data:image/png;base64,' . base64_encode(
-                    $generator->getBarcode($formattedBarcodeData, $generator::TYPE_CODE_128)
-                );
 
-                // Save the barcode data to the database
-                $barcode = new Barcode();
-                $barcode->barcode_data = $formattedBarcodeData;
-                $barcode->barcode_image = $barcodeImage; // Store the image as well
-                $barcode->save();
+        // Generate the barcode image using the formatted input data
+        $generator = new BarcodeGeneratorPNG();
+        $barcodeImage = 'data:image/png;base64,' . base64_encode(
+            $generator->getBarcode($formattedBarcodeData, $generator::TYPE_CODE_128)
+        );
 
-                return redirect()->route('list-barcodes')
-                    ->with('success', 'Barcode created successfully');
-            } catch (QueryException $e) {
-                // Check if the error is due to a duplicate entry
-                if ($e->errorInfo[1] == 1062) {
-                    return redirect()->back()
-                        ->withInput()
-                        ->with('error', 'This barcode already exists!');
-                }
-                
-                // If it's another database error, return a generic message
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'An error occurred while saving the barcode.');
-            }
+        // Save the barcode data to the database
+        $barcode = new Barcode();
+        $barcode->barcode_data = $formattedBarcodeData;
+        $barcode->barcode_image = $barcodeImage; // Store the image as well
+        $barcode->save();
+
+        return redirect()->route('list-barcodes')
+            ->with('success', 'Barcode created successfully');
     }
 
     public function showBarcodes()

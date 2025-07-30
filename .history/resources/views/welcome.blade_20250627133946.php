@@ -66,7 +66,7 @@
             <div class="format-examples">
                 <h5>Valid Formats:</h5>
                 <ul>
-                    <li><strong>Rack/Level/Bay:</strong> R01 - L2 - C </li>
+                    <li><strong>Rack/Level/Bay:</strong> R01/Level 2/C</li>
                     <li><strong>PR Format:</strong> PR01/A</li>
                 </ul>
             </div>

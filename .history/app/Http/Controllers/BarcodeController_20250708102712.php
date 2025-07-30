@@ -44,9 +44,7 @@ class BarcodeController extends Controller
         $barcodeData = trim($request->input('barcodeData'));
 
         // Define regular expression patterns for both "R01 - L2 - C" and "PR01/A" formats
-        // $patternRR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w)$/';
-        // $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w\d)$/';
-        $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*([A-Za-z]\d?)$/';
+        $patternR = '/^R(\d{2})\s*-\s*L(\d)\s*-\s*(\w)$/';
         $patternPR = '/^PR(\d{2})\/(\w)$/';
 
         if (preg_match($patternR, $barcodeData, $matchesR)) {
